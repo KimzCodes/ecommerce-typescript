@@ -24,14 +24,14 @@ const routes = createBrowserRouter([
           if (
             //if its undefined or not good for regex role then denied
             typeof params?.prefix !== "string" ||
-            /^[a-z]+$/i.test(params?.prefix)
+            !/^[a-zA-Z]+$/.test(params?.prefix)
           ) {
             throw new Response("Bad Request", {
               statusText: "Category not found",
               status: 400,
             });
           }
-          return "";
+          return true;
         },
       },
     ],
