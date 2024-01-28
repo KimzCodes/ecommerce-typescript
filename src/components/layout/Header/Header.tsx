@@ -36,7 +36,7 @@ const Header = () => {
             </Nav>
             <Nav>
               <Nav.Link>login</Nav.Link>
-              <Nav.Link eventKey={2}>Register</Nav.Link>
+              <Nav.Link>Register</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
