@@ -1,5 +1,5 @@
-import { useRouteError, isRouteErrorResponse } from "react-router-dom";
-import { Button, Container } from "react-bootstrap";
+import { useRouteError, isRouteErrorResponse, Link } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 const Error = () => {
   const error = useRouteError();
@@ -11,14 +11,17 @@ const Error = () => {
     errorMessage = error.statusText;
   } else {
     errorStatus = 404;
-    errorMessage = "Page not found";
+    errorMessage = "Page Not Found";
   }
 
   return (
-    <Container>
+    <Container className="notFound">
       <h1>{errorStatus}</h1>
       <p>{errorMessage}</p>
-      <Button variant="link">Go Back</Button>
+      <Link to="/" replace={true}>
+        Looks like you've reached to non-existent page. <br />
+        How about going back to safety?
+      </Link>
     </Container>
   );
 };
