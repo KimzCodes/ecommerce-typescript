@@ -14,8 +14,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
-    /* Absolute path imports  */
+    /* Absolute path imports */
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["src/assets/*"],
@@ -25,11 +24,10 @@
       "@routes/*": ["src/routes/*"],
       "@store/*": ["src/store/*"],
       "@styles/*": ["src/styles/*"],
-      "@templates/*": ["src/templates/*"],
+      "@layouts/*": ["src/layouts/*"],
       "@util/*": ["src/util/*"],
       "@services/*": ["src/services/*"]
     },
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,

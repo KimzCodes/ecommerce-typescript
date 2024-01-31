@@ -1,9 +1,8 @@
 import { Button } from "react-bootstrap";
 import styles from "./styles.module.css";
+const { product, productImg } = styles;
 
 const Product = () => {
-  const { product, productImg } = styles;
-
   return (
     <div className={product}>
       <div className={productImg}>
