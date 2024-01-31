@@ -1,14 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-//layouts
-import { MainLayout } from "@layouts/index";
-//pages
+// layouts
+import MainLayout from "@layouts/MainLayout/MainLayout";
+// pages
 import Home from "@pages/Home";
 import Categories from "@pages/Categories";
 import Products from "@pages/Products";
 import AboutUs from "@pages/AboutUs";
+import Login from "@pages/Login";
+import Register from "@pages/Register";
 import Error from "@pages/Error";
 
-// router configuration
 const router = createBrowserRouter([
   {
     path: "/",
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: "home",
+        index: true,
         element: <Home />,
       },
       {
@@ -26,17 +27,37 @@ const router = createBrowserRouter([
       {
         path: "products/:prefix",
         element: <Products />,
+        loader: ({ params }) => {
+          if (
+            typeof params.prefix !== "string" ||
+            !/^[a-z]+$/i.test(params.prefix)
+          ) {
+            throw new Response("Bad Request", {
+              statusText: "Category not found",
+              status: 400,
+            });
+          }
+          return true;
+        },
       },
       {
         path: "about-us",
         element: <AboutUs />,
       },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
     ],
   },
 ]);
 
-const AppRoutes = () => {
+const AppRouter = () => {
   return <RouterProvider router={router} />;
 };
 
-export default AppRoutes;
+export default AppRouter;
