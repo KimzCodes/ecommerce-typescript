@@ -26,7 +26,7 @@
       "@styles/*": ["src/styles/*"],
       "@layouts/*": ["src/layouts/*"],
       "@util/*": ["src/util/*"],
-      "@types/*": ["src/types/*"],
+      "@customTypes/*": ["src/types/*"],
       "@services/*": ["src/services/*"]
     },
     /* Linting */

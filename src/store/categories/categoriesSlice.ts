@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TLoading } from "@types/SharedTypes";
-
-type TCategory = { id: number; title: string; prefix: string; img: string };
-
+import { TLoading } from "@customTypes/Shared";
+import { TCategory } from "@customTypes/Category";
+import actGetCategories from "./act/actGetCategories";
 interface ICategoriesState {
   records: TCategory[];
   loading: TLoading;
@@ -19,6 +18,22 @@ const categoriesSlice = createSlice({
   name: "categories",
   initialState,
   reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(actGetCategories.pending, (state) => {
+      state.loading = "pending";
+      state.error = null;
+    });
+    builder.addCase(actGetCategories.fulfilled, (state, action) => {
+      state.loading = "succeeded";
+      state.records = action.payload;
+      state.error = null;
+    });
+    builder.addCase(actGetCategories.rejected, (state, action) => {
+      state.loading = "failed";
+      state.error = action.payload as string;
+    });
+  },
 });
 
+export { actGetCategories };
 export default categoriesSlice.reducer;
