@@ -13,15 +13,15 @@
 }
 
 .product h2 {
-  font-size: 17px;
+  font-size: 16px;
   margin-top: 9px;
   margin-bottom: 12px;
   width: 100%;
-  white-space: nowrap;
+  /* white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis; */
 }
 
 .product h3 {
-  font-size: 13px;
+  font-size: 14px;
 }
