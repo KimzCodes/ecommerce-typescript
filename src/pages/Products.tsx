@@ -1,32 +1,38 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { actGetProductsByCatPrefix } from "@store/products/productsSlice";
+import {
+  actGetProductsByCatPrefix,
+  productsCleanUp,
+} from "@store/products/productsSlice";
 import { Container, Row, Col } from "react-bootstrap";
 import { Product } from "@components/eCommerce";
 
 const Products = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
-  const { loading, records, error } = useAppSelector((state) => state.products);
+  const { loading, error, records } = useAppSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(actGetProductsByCatPrefix(params.prefix as string));
+
+    return () => {
+      dispatch(productsCleanUp());
+    };
   }, [dispatch, params]);
-  console.log(records);
+
   const productsList =
     records.length > 0
-      ? records.map((el) => (
+      ? records.map((record) => (
           <Col
-            key={el.id}
-            xs={6}
-            md={3}
+            xs={3}
+            key={record.id}
             className="d-flex justify-content-center mb-5 mt-2"
           >
-            <Product {...el} />
+            <Product {...record} />
           </Col>
         ))
-      : "there is no categories";
+      : "there are no categories";
 
   return (
     <Container>

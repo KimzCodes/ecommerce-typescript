@@ -1,9 +1,9 @@
+import { TCategory } from "@customTypes/category";
 import { Link } from "react-router-dom";
-import { TCategory } from "@customTypes/Category";
 import styles from "./styles.module.css";
 const { category, categoryImg, categoryTitle } = styles;
 
-const Category = ({ title, prefix, img }: TCategory) => {
+const Category = ({ title, img, prefix }: TCategory) => {
   return (
     <div className={category}>
       <Link to={`/categories/products/${prefix}`}>

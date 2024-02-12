@@ -1,9 +1,9 @@
-import { TProduct } from "@customTypes/Product";
+import { TProduct } from "@customTypes/product";
 import { Button } from "react-bootstrap";
 import styles from "./styles.module.css";
 const { product, productImg } = styles;
 
-const Product = ({ id, title, price, img }: TProduct) => {
+const Product = ({ title, price, img }: TProduct) => {
   return (
     <div className={product}>
       <div className={productImg}>

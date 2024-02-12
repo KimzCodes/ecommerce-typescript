@@ -1,9 +1,6 @@
-.category {
+.categoryImg {
   width: 180px;
   height: 180px;
-}
-
-.categoryImg {
   overflow: hidden;
   border-radius: 50%;
   background-color: #f2f2f2;

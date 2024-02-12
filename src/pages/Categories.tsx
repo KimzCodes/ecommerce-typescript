@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { actGetCategories } from "@store/categories/categoriesSlice";
-
 import { Container, Row, Col } from "react-bootstrap";
 import { Category } from "@components/eCommerce";
 
 const Categories = () => {
   const dispatch = useAppDispatch();
-  const { loading, records, error } = useAppSelector(
+  const { loading, error, records } = useAppSelector(
     (state) => state.categories
   );
 
@@ -17,17 +16,16 @@ const Categories = () => {
 
   const categoriesList =
     records.length > 0
-      ? records.map((el) => (
+      ? records.map((record) => (
           <Col
-            key={el.id}
-            xs={6}
-            md={3}
+            xs={3}
+            key={record.id}
             className="d-flex justify-content-center mb-5 mt-2"
           >
-            <Category {...el} />
+            <Category {...record} />
           </Col>
         ))
-      : "there is no categories";
+      : "there are no categories";
 
   return (
     <Container>

@@ -1,24 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TLoading } from "@customTypes/Shared";
-import { TProduct } from "@customTypes/Product";
 import actGetProductsByCatPrefix from "./act/actGetProductsByCatPrefix";
-
-interface IProductsState {
+import { TLoading } from "@customTypes/shared";
+import { TProduct } from "@customTypes/product";
+interface ICategoriesState {
   records: TProduct[];
   loading: TLoading;
   error: string | null;
 }
 
-const initialState: IProductsState = {
+const initialState: ICategoriesState = {
   records: [],
   loading: "idle",
   error: null,
 };
 
-const categoriesSlice = createSlice({
+const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    productsCleanUp: (state) => {
+      state.records = [];
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(actGetProductsByCatPrefix.pending, (state) => {
       state.loading = "pending";
@@ -27,14 +30,16 @@ const categoriesSlice = createSlice({
     builder.addCase(actGetProductsByCatPrefix.fulfilled, (state, action) => {
       state.loading = "succeeded";
       state.records = action.payload;
-      state.error = null;
     });
     builder.addCase(actGetProductsByCatPrefix.rejected, (state, action) => {
       state.loading = "failed";
-      state.error = action.payload as string;
+      if (action.payload && typeof action.payload === "string") {
+        state.error = action.payload;
+      }
     });
   },
 });
 
+export const { productsCleanUp } = productsSlice.actions;
 export { actGetProductsByCatPrefix };
-export default categoriesSlice.reducer;
+export default productsSlice.reducer;
