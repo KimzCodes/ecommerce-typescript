@@ -23,6 +23,7 @@
       "@pages/*": ["src/pages/*"],
       "@routes/*": ["src/routes/*"],
       "@store/*": ["src/store/*"],
+      "@customTypes/*": ["src/types/*"],
       "@styles/*": ["src/styles/*"],
       "@layouts/*": ["src/layouts/*"],
       "@util/*": ["src/util/*"],
