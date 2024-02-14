@@ -5,7 +5,7 @@ type GridListProps<T> = {
   renderItem: (record: T) => JSX.Element;
 };
 
-const GridList = <T extends { id: string }>({
+const GridList = <T extends { id?: number }>({
   records,
   renderItem,
 }: GridListProps<T>) => {
