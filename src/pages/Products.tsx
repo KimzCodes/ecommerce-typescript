@@ -7,6 +7,7 @@ import {
 } from "@store/products/productsSlice";
 import { GridList } from "@components/common";
 import { Product } from "@components/eCommerce";
+import { Loading } from "@components/feedback";
 import { TProduct } from "@customTypes/product";
 
 const Products = () => {
@@ -23,10 +24,12 @@ const Products = () => {
   }, [dispatch, params]);
 
   return (
-    <GridList<TProduct>
-      records={records}
-      renderItem={(record) => <Product {...record} />}
-    />
+    <Loading loading={loading} error={error}>
+      <GridList<TProduct>
+        records={records}
+        renderItem={(record) => <Product {...record} />}
+      />
+    </Loading>
   );
 };
 
