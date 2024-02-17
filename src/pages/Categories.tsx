@@ -11,7 +11,6 @@ const Categories = () => {
   const { loading, error, records } = useAppSelector(
     (state) => state.categories
   );
-
   useEffect(() => {
     if (!records.length) {
       dispatch(actGetCategories());
