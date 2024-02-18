@@ -12,12 +12,17 @@
 }
 
 .product h2 {
-  font-size: 15px;
+  font-size: 14px;
   margin-top: 9px;
   margin-bottom: 12px;
   width: 100%;
 }
 
 .product h3 {
-  font-size: 14px;
+  font-size: 13px;
+}
+
+.maximumNotice {
+  font-size: 12px;
+  margin-bottom: 7px;
 }

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import actGetProductsByCatPrefix from "./act/actGetProductsByCatPrefix";
+import { getProductAvailableQuantitySelector } from "./selectors";
 import { TLoading } from "@customTypes/shared";
 import { TProduct } from "@customTypes/product";
 interface ICategoriesState {
@@ -41,5 +42,5 @@ const productsSlice = createSlice({
 });
 
 export const { productsCleanUp } = productsSlice.actions;
-export { actGetProductsByCatPrefix };
+export { actGetProductsByCatPrefix, getProductAvailableQuantitySelector };
 export default productsSlice.reducer;
