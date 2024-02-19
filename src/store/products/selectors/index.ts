@@ -4,6 +4,7 @@ const getProductAvailableQuantitySelector = createSelector(
   (item) => item,
   (_, itemMax) => itemMax,
   (item, itemMax) => {
+    console.log("fo");
     const currentItemsInCart = item || 0;
     const currentRemainingQuantity = itemMax - currentItemsInCart;
     const quantityReachedToMax = currentRemainingQuantity <= 0 ? true : false;
