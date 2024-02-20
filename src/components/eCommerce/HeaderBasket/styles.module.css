@@ -1,8 +1,8 @@
 .basketContainer {
   align-self: flex-end;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  cursor: pointer;
 }
 
 .basketContainer h3 {
@@ -10,6 +10,7 @@
   margin-left: 6px;
   margin-bottom: 0;
 }
+
 .basketCart {
   position: relative;
 }
