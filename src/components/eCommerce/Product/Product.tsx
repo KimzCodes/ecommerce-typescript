@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { addToCart } from "@store/cart/cartSlice";
+import {
+  addToCart,
+  itemQuantityAvailabilityCheckingSelector,
+} from "@store/cart/cartSlice";
 import { Button, Spinner } from "react-bootstrap";
 import { TProduct } from "@customTypes/product";
 
@@ -12,11 +15,10 @@ const Product = ({ id, title, price, img, max }: TProduct) => {
   const [isBtnClicked, setIsBtnClicked] = useState(0);
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 
-  const currenItemQuantityInCart = useAppSelector(
-    (state) => state.cart.items[id] || 0
+  const { currentRemainingQuantity, quantityReachedToMax } = useAppSelector(
+    (state) =>
+      itemQuantityAvailabilityCheckingSelector(state.cart.items[id], max)
   );
-  const currentRemainingQuantity = max - currenItemQuantityInCart;
-  const quantityReachedToMax = currentRemainingQuantity <= 0 ? true : false;
 
   useEffect(() => {
     if (!isBtnClicked) {
