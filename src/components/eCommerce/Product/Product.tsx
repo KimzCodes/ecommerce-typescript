@@ -11,6 +11,7 @@ const Product = ({ id, title, price, img, max }: TProduct) => {
   const dispatch = useAppDispatch();
   const [isBtnClicked, setIsBtnClicked] = useState(0);
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
+
   const currenItemQuantityInCart = useAppSelector(
     (state) => state.cart.items[id] || 0
   );
