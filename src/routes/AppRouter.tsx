@@ -21,11 +21,11 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "categories",
+        path: "/categories",
         element: <Categories />,
       },
       {
-        path: "categories/products/:prefix",
+        path: "/categories/products/:prefix",
         element: <Products />,
         loader: ({ params }) => {
           if (
