@@ -4,8 +4,8 @@ import {
   getCartTotalQuantitySelector,
   itemQuantityAvailabilityCheckingSelector,
 } from "./selectors";
-import { TLoading } from "@customTypes/shared";
 import { TProduct } from "@customTypes/product";
+import { TLoading } from "@customTypes/shared";
 
 interface ICartState {
   items: { [key: number]: number };

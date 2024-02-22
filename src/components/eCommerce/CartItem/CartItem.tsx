@@ -19,7 +19,7 @@ const CartItem = () => {
           <h3>30 EGP</h3>
           <Button
             variant="secondary"
-            style={{ color: "white" }}
+            style={{ color: "white", width: "100px" }}
             className="mt-auto"
           >
             Remove

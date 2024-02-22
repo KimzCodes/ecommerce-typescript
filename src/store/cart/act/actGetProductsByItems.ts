@@ -20,7 +20,9 @@ const actGetProductsByItems = createAsyncThunk(
       const response = await axios.get<TResponse>(
         `/products?${concatenatedItemsIds}`
       );
-      return response.data.map((el) => ({
+
+      const data = response.data;
+      return data.map((el) => ({
         ...el,
         quantity: cart.items[el.id],
       }));
