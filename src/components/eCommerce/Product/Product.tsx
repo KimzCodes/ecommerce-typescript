@@ -42,7 +42,7 @@ const Product = ({ id, title, price, img, max }: TProduct) => {
         <img src={img} alt={title} />
       </div>
       <h2>{title}</h2>
-      <h3>{price} EGP</h3>
+      <h3>{price.toFixed(2)} EGP</h3>
       <p className={maximumNotice}>
         {quantityReachedToMax
           ? "You reached to the limit"
