@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import actGetProductsByItems from "./act/actGetProductsByItems";
 import {
   getCartTotalQuantitySelector,
   itemQuantityAvailabilityCheckingSelector,
@@ -33,29 +32,15 @@ const cartSlice = createSlice({
         state.items[id] = 1;
       }
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(actGetProductsByItems.pending, (state) => {
-      state.loading = "pending";
-      state.error = null;
-    });
-    builder.addCase(actGetProductsByItems.fulfilled, (state, action) => {
-      state.loading = "succeeded";
-      state.productsFullInfo = action.payload;
-    });
-    builder.addCase(actGetProductsByItems.rejected, (state, action) => {
-      state.loading = "failed";
-      if (action.payload && typeof action.payload === "string") {
-        state.error = action.payload;
-      }
-    });
+    cartItemChangeQuantity: (state, action) => {
+      state.items[action.payload.id] = action.payload.quantity;
+    },
   },
 });
 
 export {
   getCartTotalQuantitySelector,
   itemQuantityAvailabilityCheckingSelector,
-  actGetProductsByItems,
 };
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, cartItemChangeQuantity } = cartSlice.actions;
 export default cartSlice.reducer;
