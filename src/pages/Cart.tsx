@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { actGetProductsByItems } from "@store/cart/cartSlice";
 import { Heading } from "@components/common";
-import { CartItem, CartSubtotalPrice } from "@components/eCommerce";
+import { CartItemList, CartSubtotalPrice } from "@components/eCommerce";
 
 const Cart = () => {
   const dispatch = useAppDispatch();
-  //   const { items } = useAppSelector((state) => state.cart);
+  const { productsFullInfo } = useAppSelector((state) => state.cart);
 
   useEffect(() => {
     dispatch(actGetProductsByItems());
@@ -15,10 +15,7 @@ const Cart = () => {
   return (
     <>
       <Heading>Cart</Heading>
-      <CartItem />
-      <CartItem />
-      <CartItem />
-      <CartItem />
+      <CartItemList products={productsFullInfo} />
       <CartSubtotalPrice />
     </>
   );
