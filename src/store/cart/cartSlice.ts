@@ -4,20 +4,15 @@ import {
   itemQuantityAvailabilityCheckingSelector,
 } from "./selectors";
 import { TProduct } from "@customTypes/product";
-import { TLoading } from "@customTypes/shared";
 
 interface ICartState {
   items: { [key: number]: number };
-  productsFullInfo: TProduct[];
-  loading: TLoading;
-  error: null | string;
+  productFullInfo: TProduct[];
 }
 
 const initialState: ICartState = {
   items: {},
-  productsFullInfo: [],
-  loading: "idle",
-  error: null,
+  productFullInfo: [],
 };
 
 const cartSlice = createSlice({
