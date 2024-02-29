@@ -13,6 +13,7 @@ const CartSubtotalPrice = ({ products }: CartSubtotalPriceProps) => {
       return accumulator;
     }
   }, 0);
+
   return (
     <div className={styles.container}>
       <span>Subtotal:</span>
