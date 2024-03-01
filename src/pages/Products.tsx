@@ -13,7 +13,9 @@ import { TProduct } from "@customTypes/product";
 const Products = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
-  const { loading, error, records } = useAppSelector((state) => state.products);
+  const { loading, error, records } = useAppSelector((state) => {
+    return state.products;
+  });
 
   useEffect(() => {
     dispatch(actGetProductsByCatPrefix(params.prefix as string));

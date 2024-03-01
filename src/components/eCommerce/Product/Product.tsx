@@ -24,8 +24,13 @@ const Product = ({ id, title, price, img, max }: TProduct) => {
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
   const [isLikedOptimistic, setIsLikedOptimistic] = useState(false);
   const { currentRemainingQuantity, quantityReachedToMax } = useAppSelector(
-    (state) =>
-      itemQuantityAvailabilityCheckingSelector(state.cart.items[id], max)
+    (state) => {
+      console.log("ire");
+      return itemQuantityAvailabilityCheckingSelector(
+        state.cart.items[id],
+        max
+      );
+    }
   );
 
   const checkIfItemLikedAndSaved = useAppSelector((state) =>
