@@ -1,18 +1,21 @@
 .product {
-  width: 120px;
+  width: 130px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
 .productImg {
   height: 180px;
+
   background-color: #f2f2f2;
   display: block;
 }
 
 .productImg img {
   height: 100%;
+  width: 100%;
 }
 
 .product h2 {
@@ -29,4 +32,22 @@
 .maximumNotice {
   font-size: 12px;
   margin-bottom: 7px;
+}
+
+.wishListBtn {
+  position: absolute;
+  background-color: white;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  top: 7px;
+  right: 7px;
+  cursor: pointer;
+}
+
+.wishListBtn:hover {
+  box-shadow: 0px 0px 10px -3px rgba(0, 0, 0, 0.4);
 }
