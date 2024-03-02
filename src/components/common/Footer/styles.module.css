@@ -2,5 +2,6 @@
   margin-top: auto;
   text-align: center;
   padding: 10px 0;
-  background-color: #f7f7fa;
+  /* background-color: #f7f7fa; */
+  border-top: 1px solid black;
 }
