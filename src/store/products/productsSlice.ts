@@ -23,6 +23,7 @@ const productsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    //products for products page
     builder.addCase(actGetProductsByCatPrefix.pending, (state) => {
       state.loading = "pending";
       state.error = null;

@@ -2,13 +2,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "@store/index";
 import axios from "axios";
 
-const actAddToWishList = createAsyncThunk(
-  "wishList/actWishListToggle",
+const actToggleWishList = createAsyncThunk(
+  "wishList/actToggleWishList",
   async (id: number, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
     const { wishlist } = getState() as RootState;
     try {
-      const withListItems = wishlist.items;
+      const withListItems = wishlist.itemsId;
       const idIsExist = withListItems.includes(id);
       if (idIsExist) {
         //get user  whish list
@@ -33,4 +33,4 @@ const actAddToWishList = createAsyncThunk(
   }
 );
 
-export default actAddToWishList;
+export default actToggleWishList;

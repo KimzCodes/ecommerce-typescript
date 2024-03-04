@@ -1,36 +1,37 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import {
-  actGetProductsByCatPrefix,
-  productsCleanUp,
-} from "@store/products/productsSlice";
+import { productsCleanUp } from "@store/products/productsSlice";
 import { addToCart } from "@store/cart/cartSlice";
-import { actAddToWishList } from "@store/wishlist/wishlistSlice";
+import {
+  actAddToWishList,
+  actGetWishlist,
+} from "@store/wishlist/wishlistSlice";
 import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
 import { TProduct } from "@customTypes/product";
 
-const Products = () => {
+const Wishlist = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
-  const { loading, error, records } = useAppSelector((state) => state.products);
   const cartItems = useAppSelector((state) => state.cart.items);
-  const wishList = useAppSelector((state) => state.wishlist.itemsId);
+  const { recordsFullInfo, loading, error } = useAppSelector(
+    (state) => state.wishlist
+  );
 
   useEffect(() => {
-    dispatch(actGetProductsByCatPrefix(params.prefix as string));
+    dispatch(actGetWishlist());
 
     return () => {
       dispatch(productsCleanUp());
     };
   }, [dispatch, params]);
 
-  const productsFullInfo = records.map((el) => ({
+  const productsFullInfo = recordsFullInfo.map((el) => ({
     ...el,
     quantity: cartItems[el.id] || 0,
-    isLiked: wishList.includes(el.id),
+    isLiked: true,
   }));
 
   const addToCartHandler = (id: number) => {
@@ -43,7 +44,7 @@ const Products = () => {
 
   return (
     <>
-      <Heading>{params.prefix?.toUpperCase()} Products</Heading>
+      <Heading>{params.prefix?.toUpperCase()} Wishlist</Heading>
       <Loading status={loading} error={error}>
         <GridList<TProduct>
           records={productsFullInfo}
@@ -60,4 +61,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Wishlist;

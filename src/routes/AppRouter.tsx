@@ -6,6 +6,7 @@ import Home from "@pages/Home";
 import Categories from "@pages/Categories";
 import Cart from "@pages/Cart";
 import Products from "@pages/Products";
+import Wishlist from "@pages/Wishlist";
 import AboutUs from "@pages/AboutUs";
 import Login from "@pages/Login";
 import Register from "@pages/Register";
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/categories",
         element: <Categories />,
+      },
+      {
+        path: "/wishlist",
+        element: <Wishlist />,
       },
       {
         path: "/categories/products/:prefix",

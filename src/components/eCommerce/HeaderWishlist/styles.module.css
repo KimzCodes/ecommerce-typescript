@@ -7,7 +7,7 @@
 
 .container h3 {
   font-size: 15px;
-  margin-left: 4px;
+  margin-left: 2px;
   margin-bottom: 0;
 }
 
@@ -23,7 +23,7 @@
   text-align: center;
   border: 1px solid;
   position: absolute;
-  top: -11px;
+  top: -13px;
   right: -5px;
   font-size: 12px;
 }

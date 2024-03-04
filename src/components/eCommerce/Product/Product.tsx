@@ -1,10 +1,4 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import {
-  addToCart,
-  itemQuantityAvailabilityCheckingSelector,
-} from "@store/cart/cartSlice";
-import { actAddToWishList } from "@store/wishlist/wishlistSlice";
 
 import Like from "@assets/svg/like.svg?react";
 import LikeFill from "@assets/svg/like-fill.svg?react";
@@ -16,6 +10,11 @@ import styles from "./styles.module.css";
 // styles
 const { product, productImg, maximumNotice, wishListBtn } = styles;
 
+type ProductProps = TProduct & {
+  addToCartHandler: (id: number) => void;
+  wishListHandler: (id: number) => void;
+};
+
 const Product = ({
   id,
   title,
@@ -24,18 +23,17 @@ const Product = ({
   max,
   quantity,
   isLiked,
-}: TProduct) => {
-  const dispatch = useAppDispatch();
+  addToCartHandler,
+  wishListHandler,
+}: ProductProps) => {
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
-  const [isLikedOptimistic, setIsLikedOptimistic] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const currentRemainingQuantity = max - (quantity ?? 0);
   const quantityReachedToMax = currentRemainingQuantity <= 0 ? true : false;
 
   useEffect(() => {
-    if (isLiked) {
-      setIsLikedOptimistic(true);
-    }
+    setLoading(false);
   }, [isLiked]);
 
   useEffect(() => {
@@ -50,24 +48,26 @@ const Product = ({
     return () => clearTimeout(debounce);
   }, [isBtnDisabled]);
 
-  const addToCartHandler = () => {
-    dispatch(addToCart(id));
+  const addToCart = () => {
+    addToCartHandler(id);
     setIsBtnDisabled(true);
   };
 
   const toggleLikeHandler = () => {
-    setIsLikedOptimistic((prev) => !prev);
-    dispatch(actAddToWishList(id))
-      .unwrap()
-      .catch(() => {
-        setIsLikedOptimistic(false);
-      });
+    wishListHandler(id);
+    setLoading(true);
   };
 
   return (
     <div className={product}>
       <div className={wishListBtn} onClick={toggleLikeHandler}>
-        {isLikedOptimistic ? <LikeFill /> : <Like />}
+        {loading ? (
+          <Spinner animation="border" size="sm" variant="primary" />
+        ) : isLiked ? (
+          <LikeFill />
+        ) : (
+          <Like />
+        )}
       </div>
 
       <div className={productImg}>
@@ -83,7 +83,7 @@ const Product = ({
       <Button
         variant="info"
         style={{ color: "white" }}
-        onClick={addToCartHandler}
+        onClick={addToCart}
         disabled={isBtnDisabled || quantityReachedToMax}
       >
         {isBtnDisabled ? (
