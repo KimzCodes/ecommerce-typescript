@@ -13,9 +13,9 @@ import { TProduct } from "@customTypes/product";
 const Products = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
-  const { loading, error, records } = useAppSelector((state) => {
-    return state.products;
-  });
+  const { loading, error, records } = useAppSelector((state) => state.products);
+  const cartItems = useAppSelector((state) => state.cart.items);
+  const wishList = useAppSelector((state) => state.wishlist.items);
 
   useEffect(() => {
     dispatch(actGetProductsByCatPrefix(params.prefix as string));
@@ -25,12 +25,18 @@ const Products = () => {
     };
   }, [dispatch, params]);
 
+  const productsFullInfo = records.map((el) => ({
+    ...el,
+    quantity: cartItems[el.id] || 0,
+    isLiked: wishList.includes(el.id),
+  }));
+
   return (
     <>
       <Heading>{params.prefix?.toUpperCase()} Products</Heading>
       <Loading status={loading} error={error}>
         <GridList<TProduct>
-          records={records}
+          records={productsFullInfo}
           renderItem={(record) => <Product {...record} />}
         />
       </Loading>

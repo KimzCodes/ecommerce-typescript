@@ -4,10 +4,7 @@ import {
   addToCart,
   itemQuantityAvailabilityCheckingSelector,
 } from "@store/cart/cartSlice";
-import {
-  actAddToWishList,
-  itemIsLikedCheckingSelector,
-} from "@store/wishlist/wishlistSlice";
+import { actAddToWishList } from "@store/wishlist/wishlistSlice";
 
 import Like from "@assets/svg/like.svg?react";
 import LikeFill from "@assets/svg/like-fill.svg?react";
@@ -19,29 +16,27 @@ import styles from "./styles.module.css";
 // styles
 const { product, productImg, maximumNotice, wishListBtn } = styles;
 
-const Product = ({ id, title, price, img, max }: TProduct) => {
+const Product = ({
+  id,
+  title,
+  price,
+  img,
+  max,
+  quantity,
+  isLiked,
+}: TProduct) => {
   const dispatch = useAppDispatch();
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
   const [isLikedOptimistic, setIsLikedOptimistic] = useState(false);
-  const { currentRemainingQuantity, quantityReachedToMax } = useAppSelector(
-    (state) => {
-      console.log("ire");
-      return itemQuantityAvailabilityCheckingSelector(
-        state.cart.items[id],
-        max
-      );
-    }
-  );
 
-  const checkIfItemLikedAndSaved = useAppSelector((state) =>
-    itemIsLikedCheckingSelector(state, id)
-  );
+  const currentRemainingQuantity = max - (quantity ?? 0);
+  const quantityReachedToMax = currentRemainingQuantity <= 0 ? true : false;
 
   useEffect(() => {
-    if (checkIfItemLikedAndSaved) {
+    if (isLiked) {
       setIsLikedOptimistic(true);
     }
-  }, [checkIfItemLikedAndSaved]);
+  }, [isLiked]);
 
   useEffect(() => {
     if (!isBtnDisabled) {

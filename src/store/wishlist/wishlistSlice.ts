@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import actAddToWishList from "./act/actWishListToggle";
-import { itemIsLikedCheckingSelector } from "./selectors";
 
 import { TLoading } from "@customTypes/shared";
 
@@ -42,5 +41,5 @@ const wishListSlice = createSlice({
   },
 });
 
-export { actAddToWishList, itemIsLikedCheckingSelector };
+export { actAddToWishList };
 export default wishListSlice.reducer;
