@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-
+import { useAppDispatch } from "@store/hooks";
+import { addToCart } from "@store/cart/cartSlice";
+import { actToggleWishList } from "@store/wishlist/wishlistSlice";
+import { Button, Spinner } from "react-bootstrap";
 import Like from "@assets/svg/like.svg?react";
 import LikeFill from "@assets/svg/like-fill.svg?react";
-import { Button, Spinner } from "react-bootstrap";
 import { TProduct } from "@customTypes/product";
 
 import styles from "./styles.module.css";
@@ -10,10 +12,7 @@ import styles from "./styles.module.css";
 // styles
 const { product, productImg, maximumNotice, wishListBtn } = styles;
 
-type ProductProps = TProduct & {
-  addToCartHandler: (id: number) => void;
-  wishListHandler: (id: number) => void;
-};
+type ProductProps = TProduct;
 
 const Product = ({
   id,
@@ -23,17 +22,16 @@ const Product = ({
   max,
   quantity,
   isLiked,
-  addToCartHandler,
-  wishListHandler,
 }: ProductProps) => {
+  const dispatch = useAppDispatch();
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const currentRemainingQuantity = max - (quantity ?? 0);
   const quantityReachedToMax = currentRemainingQuantity <= 0 ? true : false;
 
   useEffect(() => {
-    setLoading(false);
+    setIsLoading(false);
   }, [isLiked]);
 
   useEffect(() => {
@@ -48,20 +46,21 @@ const Product = ({
     return () => clearTimeout(debounce);
   }, [isBtnDisabled]);
 
-  const addToCart = () => {
-    addToCartHandler(id);
+  const addToCartHandler = () => {
+    dispatch(addToCart(id));
     setIsBtnDisabled(true);
   };
 
   const toggleLikeHandler = () => {
-    wishListHandler(id);
-    setLoading(true);
+    if (isLoading) return;
+    dispatch(actToggleWishList(id));
+    setIsLoading(true);
   };
 
   return (
     <div className={product}>
       <div className={wishListBtn} onClick={toggleLikeHandler}>
-        {loading ? (
+        {isLoading ? (
           <Spinner animation="border" size="sm" variant="primary" />
         ) : isLiked ? (
           <LikeFill />
@@ -83,7 +82,7 @@ const Product = ({
       <Button
         variant="info"
         style={{ color: "white" }}
-        onClick={addToCart}
+        onClick={addToCartHandler}
         disabled={isBtnDisabled || quantityReachedToMax}
       >
         {isBtnDisabled ? (

@@ -1,12 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { productsCleanUp } from "@store/products/productsSlice";
-import { addToCart } from "@store/cart/cartSlice";
-import {
-  actAddToWishList,
-  actGetWishlist,
-} from "@store/wishlist/wishlistSlice";
+import { actGetWishlist, productsCleanUp } from "@store/wishlist/wishlistSlice";
 import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
@@ -34,27 +29,13 @@ const Wishlist = () => {
     isLiked: true,
   }));
 
-  const addToCartHandler = (id: number) => {
-    dispatch(addToCart(id));
-  };
-
-  const wishListHandler = (id: number) => {
-    dispatch(actAddToWishList(id));
-  };
-
   return (
     <>
       <Heading>{params.prefix?.toUpperCase()} Wishlist</Heading>
       <Loading status={loading} error={error}>
         <GridList<TProduct>
           records={productsFullInfo}
-          renderItem={(record) => (
-            <Product
-              {...record}
-              addToCartHandler={addToCartHandler}
-              wishListHandler={wishListHandler}
-            />
-          )}
+          renderItem={(record) => <Product {...record} />}
         />
       </Loading>
     </>

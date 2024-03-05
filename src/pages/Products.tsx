@@ -5,8 +5,6 @@ import {
   actGetProductsByCatPrefix,
   productsCleanUp,
 } from "@store/products/productsSlice";
-import { addToCart } from "@store/cart/cartSlice";
-import { actAddToWishList } from "@store/wishlist/wishlistSlice";
 import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
@@ -33,27 +31,13 @@ const Products = () => {
     isLiked: wishList.includes(el.id),
   }));
 
-  const addToCartHandler = (id: number) => {
-    dispatch(addToCart(id));
-  };
-
-  const wishListHandler = (id: number) => {
-    dispatch(actAddToWishList(id));
-  };
-
   return (
     <>
       <Heading>{params.prefix?.toUpperCase()} Products</Heading>
       <Loading status={loading} error={error}>
         <GridList<TProduct>
           records={productsFullInfo}
-          renderItem={(record) => (
-            <Product
-              {...record}
-              addToCartHandler={addToCartHandler}
-              wishListHandler={wishListHandler}
-            />
-          )}
+          renderItem={(record) => <Product {...record} />}
         />
       </Loading>
     </>
