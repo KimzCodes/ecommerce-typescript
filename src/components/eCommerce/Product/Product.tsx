@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useAppDispatch } from "@store/hooks";
 import { addToCart } from "@store/cart/cartSlice";
 import { Button, Spinner } from "react-bootstrap";
+import Like from "@assets/svg/like.svg?react";
+import LikeFill from "@assets/svg/like-fill.svg?react";
 import { TProduct } from "@customTypes/product";
 
 import styles from "./styles.module.css";
-const { product, productImg, maximumNotice } = styles;
+const { product, productImg, maximumNotice, wishlistBtn } = styles;
 
 const Product = ({ id, title, price, img, max, quantity }: TProduct) => {
   const dispatch = useAppDispatch();
@@ -33,6 +35,9 @@ const Product = ({ id, title, price, img, max, quantity }: TProduct) => {
 
   return (
     <div className={product}>
+      <div className={wishlistBtn}>
+        <Like />
+      </div>
       <div className={productImg}>
         <img src={img} alt={title} />
       </div>

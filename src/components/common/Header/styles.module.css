@@ -21,3 +21,12 @@
   display: block;
   margin-right: 5px;
 }
+
+.headerLeftBar {
+  display: flex;
+  flex-direction: row;
+}
+
+.headerLeftBar > div:first-of-type {
+  margin-right: 20px;
+}
