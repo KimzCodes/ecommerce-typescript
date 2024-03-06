@@ -13,8 +13,10 @@ const actToggleLike = createAsyncThunk(
       const idIsExist = wishlistItemsId.includes(id);
 
       if (idIsExist) {
-        const userWishlist = await axios.get("/wishlist?userId=1");
-        await axios.delete("wishlist/");
+        const selectedItem = await axios.get(`/wishlist?userId=1&itemId=${id}`);
+
+        await axios.delete(`/wishlist/${selectedItem.data[0].id}`);
+        return { id, type: "remove" };
       } else {
         await axios.post("wishlist", {
           userId: 1,
@@ -22,7 +24,13 @@ const actToggleLike = createAsyncThunk(
         });
         return { id, type: "add" };
       }
-    } catch (error) {}
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(error.response?.data.message || error.message);
+      } else {
+        return rejectWithValue("An unexpected error");
+      }
+    }
   }
 );
 
