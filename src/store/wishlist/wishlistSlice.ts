@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import actToggleWishList from "./act/actToggleWishList";
+import actToggleLike from "./act/actToggleLike";
 import actGetWishlist from "./act/actGetWishlist";
 import { TLoading } from "@customTypes/shared";
 import { TProduct } from "@customTypes/product";
@@ -27,10 +27,10 @@ const wishlistSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(actToggleWishList.pending, (state) => {
+    builder.addCase(actToggleLike.pending, (state) => {
       state.error = null;
     });
-    builder.addCase(actToggleWishList.fulfilled, (state, action) => {
+    builder.addCase(actToggleLike.fulfilled, (state, action) => {
       if (action.payload.type === "add") {
         state.itemsId.push(action.payload.id);
       } else {
@@ -40,7 +40,7 @@ const wishlistSlice = createSlice({
         );
       }
     });
-    builder.addCase(actToggleWishList.rejected, (state, action) => {
+    builder.addCase(actToggleLike.rejected, (state, action) => {
       if (action.payload && typeof action.payload === "string") {
         state.error = action.payload;
       }
@@ -63,6 +63,6 @@ const wishlistSlice = createSlice({
   },
 });
 
-export { actToggleWishList, actGetWishlist };
+export { actToggleLike, actGetWishlist };
 export const { productsCleanUp } = wishlistSlice.actions;
 export default wishlistSlice.reducer;

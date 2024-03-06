@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "@store/index";
 import axios from "axios";
 
-const actToggleWishList = createAsyncThunk(
+const actToggleLike = createAsyncThunk(
   "wishList/actToggleWishList",
   async (id: number, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
@@ -33,4 +33,4 @@ const actToggleWishList = createAsyncThunk(
   }
 );
 
-export default actToggleWishList;
+export default actToggleLike;
