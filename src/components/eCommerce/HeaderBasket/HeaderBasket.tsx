@@ -30,7 +30,9 @@ const HeaderBasket = () => {
     <div className={container} onClick={() => navigate("/cart")}>
       <div className={iconWrapper}>
         <Logo title="basket icon" />
-        <div className={quantityStyle}>{totalQuantity}</div>
+        {totalQuantity > 0 && (
+          <div className={quantityStyle}>{totalQuantity}</div>
+        )}
       </div>
       <h3>Cart</h3>
     </div>

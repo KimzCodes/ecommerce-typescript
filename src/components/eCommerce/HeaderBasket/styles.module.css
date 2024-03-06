@@ -28,7 +28,7 @@
   font-size: 12px;
 }
 
-.pumpCartQuantity {
+.pumpAnimate {
   animation: pumping 300ms ease-out;
 }
 
