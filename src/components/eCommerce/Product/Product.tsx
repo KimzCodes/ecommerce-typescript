@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "@store/hooks";
 import { addToCart } from "@store/cart/cartSlice";
-import { actToggleWishList } from "@store/wishlist/wishlistSlice";
+import { actToggleLike } from "@store/wishlist/wishlistSlice";
 import { Button, Spinner } from "react-bootstrap";
 import Like from "@assets/svg/like.svg?react";
 import LikeFill from "@assets/svg/like-fill.svg?react";
@@ -52,9 +52,13 @@ const Product = ({
   };
 
   const toggleLikeHandler = () => {
+    // if is loading true disable the action buttons
     if (isLoading) return;
-    dispatch(actToggleWishList(id));
     setIsLoading(true);
+    dispatch(actToggleLike(id))
+      .unwrap()
+      .then(() => {})
+      .catch(() => setIsLoading(false));
   };
 
   return (
