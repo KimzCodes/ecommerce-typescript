@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import {
-  addToCart,
-  itemQuantityAvailabilityCheckingSelector,
-} from "@store/cart/cartSlice";
+import { useAppDispatch } from "@store/hooks";
+import { addToCart } from "@store/cart/cartSlice";
 import { Button, Spinner } from "react-bootstrap";
 import { TProduct } from "@customTypes/product";
 
 import styles from "./styles.module.css";
 const { product, productImg, maximumNotice } = styles;
 
-const Product = ({ id, title, price, img, max }: TProduct) => {
+const Product = ({ id, title, price, img, max, quantity }: TProduct) => {
   const dispatch = useAppDispatch();
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 
-  const { currentRemainingQuantity, quantityReachedToMax } = useAppSelector(
-    (state) =>
-      itemQuantityAvailabilityCheckingSelector(state.cart.items[id], max)
-  );
+  const currentRemainingQuantity = max - (quantity ?? 0);
+  const quantityReachedToMax = currentRemainingQuantity <= 0 ? true : false;
 
   useEffect(() => {
     if (!isBtnDisabled) {
