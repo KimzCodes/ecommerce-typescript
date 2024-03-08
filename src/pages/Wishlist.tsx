@@ -1,33 +1,41 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import actGetWishlist from "@store/wishlist/act/actGetWishlist";
+import {
+  actGetWishlist,
+  productsFullInfoCleanUp,
+} from "@store/wishlist/wishlistSlice";
+
+import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
-import { GridList, Heading } from "@components/common";
 import { TProduct } from "@customTypes/product";
 
 const Wishlist = () => {
   const dispatch = useAppDispatch();
-  const { recordsFullInfo, loading, error } = useAppSelector(
+  const { loading, error, productsFullInfo } = useAppSelector(
     (state) => state.wishlist
   );
   const cartItems = useAppSelector((state) => state.cart.items);
 
-  const productsFullInfo = recordsFullInfo.map((el) => ({
+  useEffect(() => {
+    dispatch(actGetWishlist());
+    return () => {
+      dispatch(productsFullInfoCleanUp());
+    };
+  }, [dispatch]);
+
+  const records = productsFullInfo.map((el) => ({
     ...el,
     quantity: cartItems[el.id],
     isLiked: true,
   }));
 
-  useEffect(() => {
-    dispatch(actGetWishlist());
-  }, [dispatch]);
   return (
     <>
       <Heading>Your Wishlist</Heading>
       <Loading status={loading} error={error}>
         <GridList<TProduct>
-          records={productsFullInfo}
+          records={records}
           renderItem={(record) => <Product {...record} />}
         />
       </Loading>

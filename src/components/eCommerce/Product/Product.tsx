@@ -43,11 +43,13 @@ const Product = ({
   };
 
   const likeToggleHandler = () => {
-    setIsLoading(true);
-    dispatch(actLikeToggle(id))
-      .unwrap()
-      .then(() => setIsLoading(false))
-      .catch(() => setIsLoading(false));
+    if (!isLoading) {
+      setIsLoading(true);
+      dispatch(actLikeToggle(id))
+        .unwrap()
+        .then(() => setIsLoading(false))
+        .catch(() => setIsLoading(false));
+    }
   };
 
   return (

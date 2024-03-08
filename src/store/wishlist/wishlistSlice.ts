@@ -3,25 +3,28 @@ import actLikeToggle from "./act/actLikeToggle";
 import actGetWishlist from "./act/actGetWishlist";
 import { TLoading } from "@customTypes/shared";
 import { TProduct } from "@customTypes/product";
-
 interface IWishlist {
   itemsId: number[];
-  recordsFullInfo: TProduct[];
-  loading: TLoading;
+  productsFullInfo: TProduct[];
   error: null | string;
+  loading: TLoading;
 }
 
 const initialState: IWishlist = {
   itemsId: [],
-  recordsFullInfo: [],
-  loading: "idle",
+  productsFullInfo: [],
   error: null,
+  loading: "idle",
 };
 
 const wishlistSlice = createSlice({
   name: "wishlist",
   initialState,
-  reducers: {},
+  reducers: {
+    productsFullInfoCleanUp: (state) => {
+      state.productsFullInfo = [];
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(actLikeToggle.pending, (state) => {
       state.error = null;
@@ -31,7 +34,7 @@ const wishlistSlice = createSlice({
         state.itemsId.push(action.payload.id);
       } else {
         state.itemsId = state.itemsId.filter((el) => el !== action.payload.id);
-        state.recordsFullInfo = state.recordsFullInfo.filter(
+        state.productsFullInfo = state.productsFullInfo.filter(
           (el) => el.id !== action.payload.id
         );
       }
@@ -41,14 +44,14 @@ const wishlistSlice = createSlice({
         state.error = action.payload;
       }
     });
-    // get wishlist
+    // get wishlist items
     builder.addCase(actGetWishlist.pending, (state) => {
       state.loading = "pending";
       state.error = null;
     });
     builder.addCase(actGetWishlist.fulfilled, (state, action) => {
       state.loading = "succeeded";
-      state.recordsFullInfo = action.payload;
+      state.productsFullInfo = action.payload;
     });
     builder.addCase(actGetWishlist.rejected, (state, action) => {
       state.loading = "failed";
@@ -59,5 +62,6 @@ const wishlistSlice = createSlice({
   },
 });
 
-export { actLikeToggle };
+export { actLikeToggle, actGetWishlist };
+export const { productsFullInfoCleanUp } = wishlistSlice.actions;
 export default wishlistSlice.reducer;
