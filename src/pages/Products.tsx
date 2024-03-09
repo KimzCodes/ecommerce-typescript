@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import {
   actGetProductsByCatPrefix,
-  productsCleanUp,
+  cleanUpProductsRecords,
 } from "@store/products/productsSlice";
 import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";
@@ -21,7 +21,7 @@ const Products = () => {
     dispatch(actGetProductsByCatPrefix(params.prefix as string));
 
     return () => {
-      dispatch(productsCleanUp());
+      dispatch(cleanUpProductsRecords());
     };
   }, [dispatch, params]);
 
@@ -33,7 +33,7 @@ const Products = () => {
 
   return (
     <>
-      <Heading>{params.prefix?.toUpperCase()} Products</Heading>
+      <Heading title={`${params.prefix?.toUpperCase()} Products`} />
       <Loading status={loading} error={error}>
         <GridList<TProduct>
           records={productsFullInfo}
