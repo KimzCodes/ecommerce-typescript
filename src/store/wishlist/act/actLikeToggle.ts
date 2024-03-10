@@ -19,7 +19,7 @@ const actLikeToggle = createAsyncThunk(
         return { type: "add", id };
       }
     } catch (error) {
-      rejectWithValue(axiosErrorHandler(error));
+      return rejectWithValue(axiosErrorHandler(error));
     }
   }
 );

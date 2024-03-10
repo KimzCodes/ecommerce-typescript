@@ -14,7 +14,7 @@ const actGetCategories = createAsyncThunk(
       const response = await axios.get<TResponse>("/category");
       return response.data;
     } catch (error) {
-      rejectWithValue(axiosErrorHandler(error));
+      return rejectWithValue(axiosErrorHandler(error));
     }
   }
 );

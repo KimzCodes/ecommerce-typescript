@@ -28,7 +28,7 @@ const actGetWishlist = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      rejectWithValue(axiosErrorHandler(error));
+      return rejectWithValue(axiosErrorHandler(error));
     }
   }
 );
