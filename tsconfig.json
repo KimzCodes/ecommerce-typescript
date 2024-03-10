@@ -23,11 +23,12 @@
       "@pages/*": ["src/pages/*"],
       "@routes/*": ["src/routes/*"],
       "@store/*": ["src/store/*"],
+      "@store": ["src/store/index"],
       "@customTypes/*": ["src/types/*"],
       "@styles/*": ["src/styles/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@util/*": ["src/util/*"],
-      "@util": ["src/util/index"],
+      "@utils/*": ["src/utils/*"],
+      "@utils": ["src/utils/index"],
       "@services/*": ["src/services/*"]
     },
     /* Linting */
