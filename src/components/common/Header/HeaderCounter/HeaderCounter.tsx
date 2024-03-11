@@ -34,7 +34,7 @@ const HeaderCounter = ({
 
     return () => clearTimeout(debounce);
   }, [totalQuantity]);
-  console.log("d");
+
   return (
     <div className={container} onClick={() => navigate(to)}>
       <div className={iconWrapper}>
