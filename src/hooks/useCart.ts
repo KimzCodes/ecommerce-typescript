@@ -21,11 +21,6 @@ const useCart = () => {
     };
   }, [dispatch]);
 
-  const products = productsFullInfo.map((el) => ({
-    ...el,
-    quantity: items[el.id],
-  }));
-
   const changeQuantityHandler = useCallback(
     (id: number, quantity: number) => {
       dispatch(cartItemChangeQuantity({ id, quantity }));
@@ -39,6 +34,11 @@ const useCart = () => {
     },
     [dispatch]
   );
+
+  const products = productsFullInfo.map((el) => ({
+    ...el,
+    quantity: items[el.id],
+  }));
 
   return { loading, error, products, changeQuantityHandler, removeItemHandler };
 };
