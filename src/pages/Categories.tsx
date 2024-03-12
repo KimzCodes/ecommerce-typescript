@@ -2,7 +2,7 @@ import useCategories from "@hooks/useCategories";
 import { Category } from "@components/eCommerce";
 import { GridList, Heading } from "@components/common";
 import { Loading } from "@components/feedback";
-import { TCategory } from "@types";
+import { TCategory } from "@customTypes/category";
 
 const Categories = () => {
   const { loading, error, records } = useCategories();
