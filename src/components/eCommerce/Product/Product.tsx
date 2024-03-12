@@ -5,7 +5,7 @@ import { addToCart } from "@store/cart/cartSlice";
 import Like from "@assets/svg/like.svg?react";
 import LikeFill from "@assets/svg/like-fill.svg?react";
 import { Button, Spinner } from "react-bootstrap";
-import { TProduct } from "@customTypes/product";
+import { TProduct } from "@types";
 
 import styles from "./styles.module.css";
 const { product, productImg, maximumNotice, wishlistBtn } = styles;
