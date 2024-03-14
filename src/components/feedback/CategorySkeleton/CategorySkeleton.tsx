@@ -16,7 +16,7 @@ const CategorySkeleton = () => {
           foregroundColor="#ffffff"
         >
           <rect x="61" y="179" rx="3" ry="3" width="85" height="6" />
-          <circle cx="104" cy="88" r="84" />
+          <circle cx="104" cy="84" r="84" />
         </ContentLoader>
       </Col>
     ));

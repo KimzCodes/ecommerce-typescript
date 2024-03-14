@@ -1,10 +1,12 @@
 import { TLoading } from "@types";
 import CategorySkeleton from "../CategorySkeleton/CategorySkeleton";
 import ProductSkeleton from "../ProductSkeleton/ProductSkeleton";
+import CartSkeleton from "../CartSkeleton/CartSkeleton";
 
 const loadingTypes = {
   category: CategorySkeleton,
   product: ProductSkeleton,
+  cart: CartSkeleton,
 };
 
 type LoadingProps = {
