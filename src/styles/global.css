@@ -1,11 +1,11 @@
 .notFound {
-  padding-top: 15%;
-  text-align: center;
+  padding-top: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.notFound h1 {
-  font-size: 130px;
-}
-.notFound p {
-  font-size: 50px;
+.notFound a {
+  font-size: 23px;
 }
