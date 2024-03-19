@@ -1,13 +1,16 @@
+import { LottieHandler } from "@components/feedback";
 import { Row, Col } from "react-bootstrap";
 
 type GridListProps<T> = {
   records: T[];
   renderItem: (record: T) => JSX.Element;
+  emptyMessage: string;
 };
 
 const GridList = <T extends { id?: number }>({
   records,
   renderItem,
+  emptyMessage,
 }: GridListProps<T>) => {
   const renderList =
     records.length > 0 ? (
@@ -22,7 +25,7 @@ const GridList = <T extends { id?: number }>({
       ))
     ) : (
       <Col>
-        <p>There are no records</p>
+        <LottieHandler message={emptyMessage} type="empty" />
       </Col>
     );
   return <Row>{renderList}</Row>;

@@ -2,6 +2,8 @@ import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // layouts
 const MainLayout = lazy(() => import("@layouts/MainLayout/MainLayout"));
+// Suspense
+import { LottieHandler } from "@components/feedback";
 // pages
 import Error from "@pages/Error";
 const Home = lazy(() => import("@pages/Home"));
@@ -17,7 +19,13 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Suspense fallback="loading please wait..">
+      <Suspense
+        fallback={
+          <div className="d-flex flex-column align-items-center">
+            <h5 style={{ marginTop: "20%" }}>Loading please wait...</h5>
+          </div>
+        }
+      >
         <MainLayout />
       </Suspense>
     ),
@@ -26,7 +34,11 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback="loading please wait..">
+          <Suspense
+            fallback={
+              <LottieHandler type="loading" message="Loading please wait..." />
+            }
+          >
             <Home />
           </Suspense>
         ),
@@ -34,7 +46,11 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: (
-          <Suspense fallback="loading please wait..">
+          <Suspense
+            fallback={
+              <LottieHandler type="loading" message="Loading please wait..." />
+            }
+          >
             <Cart />
           </Suspense>
         ),
@@ -42,7 +58,11 @@ const router = createBrowserRouter([
       {
         path: "/wishlist",
         element: (
-          <Suspense fallback="loading please wait..">
+          <Suspense
+            fallback={
+              <LottieHandler type="loading" message="Loading please wait..." />
+            }
+          >
             <Wishlist />
           </Suspense>
         ),
@@ -50,7 +70,11 @@ const router = createBrowserRouter([
       {
         path: "/categories",
         element: (
-          <Suspense fallback="loading please wait..">
+          <Suspense
+            fallback={
+              <LottieHandler type="loading" message="Loading please wait..." />
+            }
+          >
             <Categories />
           </Suspense>
         ),
@@ -58,7 +82,11 @@ const router = createBrowserRouter([
       {
         path: "/categories/products/:prefix",
         element: (
-          <Suspense fallback="loading please wait..">
+          <Suspense
+            fallback={
+              <LottieHandler type="loading" message="Loading please wait..." />
+            }
+          >
             <Products />
           </Suspense>
         ),
@@ -78,7 +106,11 @@ const router = createBrowserRouter([
       {
         path: "about-us",
         element: (
-          <Suspense fallback="loading please wait..">
+          <Suspense
+            fallback={
+              <LottieHandler type="loading" message="Loading please wait..." />
+            }
+          >
             <AboutUs />
           </Suspense>
         ),
@@ -86,7 +118,11 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: (
-          <Suspense fallback="loading please wait..">
+          <Suspense
+            fallback={
+              <LottieHandler type="loading" message="Loading please wait..." />
+            }
+          >
             <Login />
           </Suspense>
         ),
@@ -94,7 +130,11 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: (
-          <Suspense fallback="loading please wait..">
+          <Suspense
+            fallback={
+              <LottieHandler type="loading" message="Loading please wait..." />
+            }
+          >
             <Register />
           </Suspense>
         ),
