@@ -1,6 +1,7 @@
 import CategorySkeleton from "../skeletons/CategorySkeleton/CategorySkeleton";
 import ProductSkeleton from "../skeletons/ProductSkeleton/ProductSkeleton";
 import CartSkeleton from "../skeletons/CartSkeleton/CartSkeleton";
+import LottieHandler from "../LottieHandler/LottieHandler";
 
 import { TLoading } from "@types";
 
@@ -29,7 +30,11 @@ const Loading = ({
     return <Component />;
   }
   if (status === "failed") {
-    return <div>{error}</div>;
+    return (
+      <div>
+        <LottieHandler type="error" message={error as string} />
+      </div>
+    );
   }
   return <div>{children}</div>;
 };
