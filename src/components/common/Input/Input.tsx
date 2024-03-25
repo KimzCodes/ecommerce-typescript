@@ -1,23 +1,27 @@
+import { UseFormRegister, FieldValues, Path } from "react-hook-form";
 import { Form } from "react-bootstrap";
-import { useController, useForm } from "react-hook-form";
 
-type InputProps = {
+type InputProps<T extends FieldValues> = {
+  name: Path<T>; // Name should be a string
   label: string;
-  name: string;
-  onChange?: () => void;
-  onBlur?: () => void;
-  error: string;
+  type?: string;
+  register: UseFormRegister<T>; // UseFormRegister with generic type T
+  error?: string;
 };
 
-const Input = ({ label, name, onChange, onBlur, error }: InputProps) => {
+const Input = <T extends FieldValues>({
+  name,
+  label,
+  type = "text",
+  register,
+  error,
+}: InputProps<T>) => {
   return (
     <Form.Group className="mb-3">
       <Form.Label>{label}</Form.Label>
       <Form.Control
-        type="text"
-        onChange={onChange}
-        onBlur={onBlur}
-        name={name}
+        type={type}
+        {...register(name)}
         isInvalid={error ? true : false}
       />
       <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
