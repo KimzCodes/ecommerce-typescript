@@ -20,7 +20,7 @@ const Login = () => {
 
   return (
     <>
-      <Heading title="Register" />
+      <Heading title="Login" />
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <Form onSubmit={handleSubmit(onSubmit)}>

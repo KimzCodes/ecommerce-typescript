@@ -1,3 +1,5 @@
+import { useAppDispatch } from "@store/hooks";
+import { actAuthRegister } from "@store/auth/authSlice";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -8,16 +10,21 @@ import { Heading } from "@components/common";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
 const Register = () => {
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
+
     formState: { errors },
   } = useForm<signUpSchemaType>({
     resolver: zodResolver(signUpSchemaValidation),
     mode: "onBlur",
   });
 
-  const onSubmit: SubmitHandler<signUpSchemaType> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<signUpSchemaType> = (data) => {
+    const { firstName, lastName, email, password } = data;
+    dispatch(actAuthRegister({ firstName, lastName, email, password }));
+  };
   return (
     <>
       <Heading title="Register" />
