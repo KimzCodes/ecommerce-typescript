@@ -6,7 +6,8 @@ import {
   signUpSchemaValidation,
   signUpSchemaType,
 } from "@validations/signUpSchema";
-import { Heading, Input } from "@components/common";
+import { Heading } from "@components/common";
+import { Input } from "@components/form";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
 const Register = () => {
@@ -14,7 +15,7 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-
+    trigger,
     formState: { errors },
   } = useForm<signUpSchemaType>({
     resolver: zodResolver(signUpSchemaValidation),
@@ -24,6 +25,12 @@ const Register = () => {
   const onSubmit: SubmitHandler<signUpSchemaType> = (data) => {
     const { firstName, lastName, email, password } = data;
     dispatch(actAuthRegister({ firstName, lastName, email, password }));
+  };
+
+  const emailOnBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
+    await trigger("email");
+
+    console.log("fired");
   };
   return (
     <>
@@ -48,6 +55,7 @@ const Register = () => {
               label="Email"
               register={register}
               error={errors.email?.message}
+              onBlur={emailOnBlur}
             />
             <Input
               name="password"

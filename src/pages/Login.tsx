@@ -5,6 +5,7 @@ import {
   signInSchemaValidation,
 } from "@validations/signInSchema";
 import { Heading } from "@components/common";
+import { Input } from "@components/form";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
 const Login = () => {
@@ -24,30 +25,18 @@ const Login = () => {
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            <Form.Group className="mb-3">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="text"
-                {...register("email")}
-                isInvalid={errors.email ? true : false}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.email?.message}
-              </Form.Control.Feedback>
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                {...register("password")}
-                isInvalid={errors.password ? true : false}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.password?.message}
-              </Form.Control.Feedback>
-            </Form.Group>
-
+            <Input
+              name="email"
+              label="Email"
+              register={register}
+              error={errors.email?.message}
+            />
+            <Input
+              name="password"
+              label="Password"
+              register={register}
+              error={errors.password?.message}
+            />
             <Button variant="info" type="submit" style={{ color: "white" }}>
               Submit
             </Button>
