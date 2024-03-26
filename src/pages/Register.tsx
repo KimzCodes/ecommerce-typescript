@@ -1,5 +1,9 @@
-import { useAppDispatch } from "@store/hooks";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { actAuthRegister } from "@store/auth/authSlice";
+import {
+  actEmailChecker,
+  resetEmailChecker,
+} from "@store/emailChecker/emailCheckerSlice";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -12,10 +16,15 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 
 const Register = () => {
   const dispatch = useAppDispatch();
+  const { enteredEmail, emailChecking } = useAppSelector(
+    (state) => state.emailChecker
+  );
+
   const {
     register,
     handleSubmit,
     trigger,
+    getFieldState,
     formState: { errors },
   } = useForm<signUpSchemaType>({
     resolver: zodResolver(signUpSchemaValidation),
@@ -27,10 +36,20 @@ const Register = () => {
     dispatch(actAuthRegister({ firstName, lastName, email, password }));
   };
 
-  const emailOnBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
+  const emailCheckingHandler = async (
+    e: React.FocusEvent<HTMLInputElement>
+  ) => {
+    const value = e.target.value;
     await trigger("email");
+    const { isDirty, invalid } = getFieldState("email");
 
-    console.log("fired");
+    if (isDirty && !invalid && enteredEmail !== value) {
+      dispatch(actEmailChecker(value));
+    }
+
+    if (enteredEmail && value.length === 0) {
+      dispatch(resetEmailChecker());
+    }
   };
   return (
     <>
@@ -54,8 +73,19 @@ const Register = () => {
               name="email"
               label="Email"
               register={register}
-              error={errors.email?.message}
-              onBlur={emailOnBlur}
+              error={
+                errors.email?.message
+                  ? errors.email?.message
+                  : emailChecking === "notFree"
+                  ? "This email is already in use"
+                  : ""
+              }
+              onBlur={emailCheckingHandler}
+              success={
+                emailChecking === "free"
+                  ? " This email is available for use."
+                  : ""
+              }
             />
             <Input
               name="password"

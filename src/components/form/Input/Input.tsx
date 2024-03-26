@@ -5,8 +5,9 @@ type InputProps<TFieldValues extends FieldValues> = {
   name: Path<TFieldValues>;
   label: string;
   type?: string;
-  register: UseFormRegister<TFieldValues>; // UseFormRegister with generic type T
+  register: UseFormRegister<TFieldValues>;
   error?: string;
+  success?: string;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 };
 
@@ -16,6 +17,7 @@ const Input = <TFieldValues extends FieldValues>({
   type = "text",
   register,
   error,
+  success,
   onBlur,
 }: InputProps<TFieldValues>) => {
   return (
@@ -26,8 +28,10 @@ const Input = <TFieldValues extends FieldValues>({
         type={type}
         onBlur={onBlur ? onBlur : register(name).onBlur}
         isInvalid={error ? true : false}
+        isValid={success ? true : false}
       />
       <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
+      <Form.Control.Feedback type="valid">{success}</Form.Control.Feedback>
     </Form.Group>
   );
 };
