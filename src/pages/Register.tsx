@@ -35,12 +35,11 @@ const Register = () => {
     const { firstName, lastName, email, password } = data;
     dispatch(actAuthRegister({ firstName, lastName, email, password }));
   };
-
-  const emailCheckingHandler = async (
-    e: React.FocusEvent<HTMLInputElement>
-  ) => {
+  const { isTouched } = getFieldState("email");
+  console.log(isTouched);
+  const emailCheckingHandler = (e: React.FocusEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    await trigger("email");
+    trigger("email");
     const { isDirty, invalid } = getFieldState("email");
 
     if (isDirty && !invalid && enteredEmail !== value) {
@@ -86,7 +85,14 @@ const Register = () => {
                   ? " This email is available for use."
                   : ""
               }
+              disabled={emailChecking === "processing" ? true : false}
+              formText={
+                emailChecking === "processing"
+                  ? "We're currently checking the availability of this email address. Please wait a moment."
+                  : ""
+              }
             />
+
             <Input
               name="password"
               label="Password"
@@ -100,7 +106,12 @@ const Register = () => {
               error={errors.confirmPassword?.message}
             />
 
-            <Button variant="info" type="submit" style={{ color: "white" }}>
+            <Button
+              variant="info"
+              type="submit"
+              style={{ color: "white" }}
+              disabled={emailChecking === "processing" ? true : false}
+            >
               Submit
             </Button>
           </Form>
