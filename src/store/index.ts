@@ -16,6 +16,7 @@ import cart from "./cart/cartSlice";
 import wishlist from "./wishlist/wishlistSlice";
 import auth from "./auth/authSlice";
 import orders from "./orders/ordersSlice";
+import toasts from "./toasts/toastsSlice";
 
 const rootPersistConfig = {
   key: "root",
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
   categories,
   products,
   orders,
+  toasts,
   cart: persistReducer(cartPersistConfig, cart),
   wishlist: wishlist,
 });
@@ -51,7 +53,16 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER,
+          "toasts/addToast",
+        ],
+        ignoredPaths: [/^toasts\.records\.\d+\.onCloseToast$/],
       },
     }),
 });
